@@ -4,9 +4,33 @@
         <title>chushi vue</title>
         <script type="text/javascript"  src="../js/vue.js"></script>
     </head>
+ 
     <body>
-        <script type="text/javascript">
-        Vue.config.productionTip = false
-        </script>
+      
+
+    <div id="root">
+        <p>nihao vue {{name.toUpperCase()}}</p> <!--{{}} 填充式传值-->
+        <a v-bind:href="url" x="url"> url is {{school.url.toUpperCase()}} </a>
+        <input type="text" v-bind:value="name"> <!--v-bind 只能单向数据更新-->
+        <input type="text" v-model:value="name"> <!--v-model 双向数据更新-->
+    </div>
+  
+
     </body>
+<!--使用vue 需要初始一个vue对象-->
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+            el:'#root',
+            data:{
+                name:'zxg1',
+                url:'www.baidu.com',
+                school:{
+                    url:'www.163.com',
+                    name:'zxg'
+                }
+            }
+        })
+
+        </script>
 </html>
