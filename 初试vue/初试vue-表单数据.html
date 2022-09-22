@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>chushi vue</title>
+        <script type="text/javascript"  src="../js/vue.js"></script>
+
+
+
+    </head>
+ 
+    <body>
+
+    <!--准备好一个容器-->
+    <div id="root">
+        
+       <button @click="add">添加老刘</button>
+       
+    <!--表单数据填充 key一定要带 否则数据会错乱-->
+        <ul>
+            <li v-for="p in persons" :key="p.id">
+            {{p.name}}-{{p.age}}
+            </li>
+        </ul>
+    </div>
+  
+
+    </body>
+<!--使用vue 需要初始一个vue对象-->
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+       const vm= new Vue({
+        data:{
+           
+             name:"zxg1",
+             url:'www.baidu.com',
+             school:{
+                 url:'www.163.com',
+                 name:'zxg'
+                },
+            firstname:'张',
+            lastname:'三',
+            classmode:'normal',
+            classarr:['normal','bad','happy'],
+            classobj:{
+                normal:true,
+                bad:false,
+            },
+            persons:[
+                {id:'001',name:'zxg1',age:18},
+                {id:'002',name:'zxg2',age:19},
+                {id:'003',name:'zxg3',age:20},
+                {id:'004',name:'zxg4',age:21},
+            ]
+
+            
+        },
+        methods: {
+            changestyle(){
+              const arr=['normal','bad','happy']
+              this.classmode = arr[Math.floor(Math.random()*3)]
+
+              console.log("tag",this.classmode) //打印对象日志信息
+            },
+            add(){
+                const p= {id:'005',name:'zxg5',age:22}
+                this.persons.push(p)
+            }
+        },
+
+        })
+        console.log("tag",vm) //打印对象日志信息
+        vm.$mount('#root') //第2中写法
+
+
+
+
+        </script>
+</html>
