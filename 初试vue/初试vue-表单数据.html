@@ -13,14 +13,17 @@
     <!--准备好一个容器-->
     <div id="root">
         
-       <button @click="add">添加老刘</button>
-       
+       <button @click="sorttype = 1">升序</button>
+       <button @click="sorttype = 2">降序</button>
+       <button @click="sorttype = 0">原序</button>
+       <input type="text" value="abddsf" v-model='keyWord'/>
     <!--表单数据填充 key一定要带 否则数据会错乱-->
         <ul>
-            <li v-for="p in persons" :key="p.id">
+            <li v-for="p in filterpersons" :key="p.id">
             {{p.name}}-{{p.age}}
             </li>
         </ul>
+
     </div>
   
 
@@ -30,7 +33,7 @@
         Vue.config.productionTip = false
        const vm= new Vue({
         data:{
-           
+             
              name:"zxg1",
              url:'www.baidu.com',
              school:{
@@ -46,12 +49,15 @@
                 bad:false,
             },
             persons:[
-                {id:'001',name:'zxg1',age:18},
+                {id:'001',name:'kxg1',age:18},
                 {id:'002',name:'zxg2',age:19},
-                {id:'003',name:'zxg3',age:20},
-                {id:'004',name:'zxg4',age:21},
-            ]
-
+                {id:'003',name:'fxg3',age:20},
+                {id:'004',name:'cxg4',age:11},
+                {id:'003',name:'cxg3',age:28},
+                {id:'004',name:'kxg4',age:9},
+            ],
+            keyWord:'',
+            sorttype:0 //0 1 2 排序控制
             
         },
         methods: {
@@ -66,6 +72,22 @@
                 this.persons.push(p)
             }
         },
+        //用computed方法进行删选
+        computed:{
+            filterpersons(){
+                const findp = this.persons.filter((v)=>{
+                    //console.log('@@22',v.name.indexOf(this.keyWord)!== -1)
+                    return v.name.indexOf(this.keyWord)!== -1
+                })
+                // 筛选的数据进行排序
+                if(this.sorttype){
+                    findp.sort((p1,p2)=>{
+                        return this.sorttype ==1 ? p2.age-p1.age : p1.age-p2.age
+                    })
+                }
+                 return findp
+            }
+        }
 
         })
         console.log("tag",vm) //打印对象日志信息
