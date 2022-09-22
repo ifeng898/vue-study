@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>chushi vue</title>
+        <script type="text/javascript"  src="../js/vue.js"></script>
+
+
+    <style>
+        .normal{
+            background-color:black;
+            border: 4px solid red;
+            background: linear-gradient(30deg,yellow,pink,orange,yellow);
+          
+        }
+        .bad{
+            background-color:green;
+            border: 4px solid blue;
+            background: linear-gradient(30deg,yellow,pink,orange,yellow);
+          
+        }
+        .happy{
+            background-color:red;
+            border: 4px solid orange;
+            background: linear-gradient(30deg,yellow,pink,orange,yellow);
+          
+        }
+
+
+        
+    </style>
+
+    </head>
+ 
+    <body>
+
+    <!--准备好一个容器-->
+    <div id="root">
+        
+       
+        <!--适用于动态指定某一种样式-->
+        <div class="normal" :class="classmode" @click="changestyle">点击我变色</div>
+        <br/><br/>
+        <!--适用于样式个数不确定，名字也不确定-->
+        <div class="bad" :class="classarr" @click="changestyle">点击我变色</div>
+        <br/><br/>
+        <!--适用于绑定的样式个数确定 名字也确定，但要动态决定用不用-->        
+        <div class="bad" :class="classobj" @click="changestyle">点击我变色</div>
+    </div>
+  
+
+    </body>
+<!--使用vue 需要初始一个vue对象-->
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+       const vm= new Vue({
+        data:{
+           
+             name:"zxg1",
+             url:'www.baidu.com',
+             school:{
+                 url:'www.163.com',
+                 name:'zxg'
+                },
+            firstname:'张',
+            lastname:'三',
+            classmode:'normal',
+            classarr:['normal','bad','happy'],
+            classobj:{
+                normal:true,
+                bad:false,
+            }
+            
+        },
+        methods: {
+            changestyle(){
+              const arr=['normal','bad','happy']
+              this.classmode = arr[Math.floor(Math.random()*3)]
+
+              console.log("tag",this.classmode) //打印对象日志信息
+            }
+        },
+
+        })
+        console.log("tag",vm) //打印对象日志信息
+        vm.$mount('#root') //第2中写法
+
+
+
+
+        </script>
+</html>
