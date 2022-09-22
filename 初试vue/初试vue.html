@@ -6,13 +6,27 @@
     </head>
  
     <body>
-      
+      <!--
+     vue中el有两种赋值方法：1、el:'#id' 2、先创建vue实例，在用实例对象调用vm.$mount('#id')的方式挂载
+    data也有两种写法：
+            1、对象式
+            2、函数式 以后开发都用函数式
+    重要原则：由vue管理的函数 一定不要写箭头函数，一旦写了箭头函数，this对象就不是vue了 可以通过consel
+    
+    -->
+
+
+
 
     <div id="root">
         <p>nihao vue {{name.toUpperCase()}}</p> <!--{{}} 填充式传值-->
         <a v-bind:href="url" x="url"> url is {{school.url.toUpperCase()}} </a>
         <input type="text" v-bind:value="name"> <!--v-bind 只能单向数据更新-->
-        <input type="text" v-model:value="name"> <!--v-model 双向数据更新-->
+        <input type="text" v-model:value="name"> <!--v-model 双向数据更新  但只能用在表单类元素上 value值-->
+
+        <!--简写方式-->
+        <input type="text" :value="name"> <!--v-bind 只能单向数据更新-->
+        <input type="text" v-model="name"> <!--v-model 双向数据更新  但只能用在表单类元素上 value值-->
     </div>
   
 
@@ -20,17 +34,34 @@
 <!--使用vue 需要初始一个vue对象-->
     <script type="text/javascript">
         Vue.config.productionTip = false
-        new Vue({
-            el:'#root',
-            data:{
-                name:'zxg1',
-                url:'www.baidu.com',
-                school:{
-                    url:'www.163.com',
-                    name:'zxg'
+       const v= new Vue({
+           // el:'#root',  //第一种写法
+           // data 的第一种写法
+            // data:{
+            //     name:'zxg1',
+            //     url:'www.baidu.com',
+            //     school:{
+            //         url:'www.163.com',
+            //         name:'zxg'
+            //     }
+            // }
+
+
+         // data的第2种写法
+        data:function(){
+            return{
+             name:"zxg1",
+             url:'www.baidu.com',
+             school:{
+                 url:'www.163.com',
+                 name:'zxg'
                 }
             }
+        }
         })
+        console.log("tag",v) //打印对象日志信息
+        v.$mount('#root') //第2中写法
 
+       
         </script>
 </html>
