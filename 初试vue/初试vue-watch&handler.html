@@ -41,6 +41,17 @@
             lastname:'三'
             
         },
+/*
+computed和watch得区别
+computed 不能执行异步任务
+watch可以执行异步任务 例如 setTimeout 函数
+
+*/
+
+
+
+
+
     
         //简写方法 当不需要修改值得时候 即只使用get方法得时候 可以用此简写
             computed:{
@@ -78,7 +89,7 @@
         console.log("tag",vm) //打印对象日志信息
         vm.$mount('#root') //第2中写法
 
-        
+
         // 另外一种监视数据得方法
         vm.$watch('lastname',{
             handler(){
