@@ -38,15 +38,17 @@
         <button @click="showdialog">点击我弹窗1</button>
         <button @click="showdialog($event,66)">点击我弹窗2</button>
 
+
+        <h2>欢迎来到{{name}} 事件触发控制的学习</h2>
         <!-- 阻止响应url跳转 （常用）-->
-        <a href="http://www.baidu.com" @click.prevent="showdialog">点击我弹窗1</a>
+        <a href="http://www.baidu.com" @click.prevent="showdialog">用prevent属性 点击我URL不调整</a>
         <!-- 阻止事件冒泡 （常用）-->
         <div class="demo1" @click="showdialog">
-            <button @click.stop="showdialog">点我消息</button>
+            <button @click.stop="showdialog">stop属性 点击我阻止冒泡</button>
         </div>
         <!-- 事件只触发一次（常用）-->
-        <button @click.once="showdialog($event,66)">点击我弹窗2</button>
-        <button @click="showdialog($event,66)">点击我弹窗2</button>
+        <button @click.once="showdialog($event,66)">once属性 点击我只弹一次窗</button>
+        <button @click="showdialog($event,66)">点击我事件函数可以传参 66</button>
 
 
 
@@ -67,9 +69,20 @@
         也可以使用keycode去指定具体的按键(不推荐)
         Vue.config.keyCodes. 自定义键名=键码。可以去定制按键别名 -->
 
-        <h2>欢迎来到{{name}}学习</h2>
+        <h2>欢迎来到{{name}} 按键事件的学习</h2>
 
         <input type="text" placeholder="按下回车提示输入" @keyup.enter="showdialog">
+
+        <br/>
+        <h2>computed计算属性的使用方式</h2>
+        <br/>
+        姓: <input type="text" v-model="firstname"><br/><br/>
+        名: <input type="text" v-model="lastname"><br/><br/>
+        全名: <span>{{fullname}} </span><br/><br/>
+
+
+
+
 
     </div>
   
@@ -99,7 +112,25 @@
              school:{
                  url:'www.163.com',
                  name:'zxg'
+                },
+            firstname:'张',
+            lastname:'三'
+            
+        },
+        // 计算属性 效率更高，当调用一次后 即可使用缓存
+        computed:{
+            fullname:{
+                //当有人读取fullname的时候 get就会调用；所依赖的数据发生变化时候就会调用get
+                get(){
+                return  this.firstname+"-"+this.lastname
+                },
+                //当fullname被修改时候 set就会调用
+                set(value){
+                    const arr = value.split('-')
+                    this.firstname=arr[0]
+                    this.lastname=arr[1]
                 }
+            }
             
         },
         methods:{
