@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>chushi vue</title>
+        <script type="text/javascript"  src="../js/vue.js"></script>
+    </head>
+ 
+    <body>
+    
+    <div id="root">
+    
+        <app/>
+    </div>
+  
+
+    </body>
+<!--使用vue 需要初始一个vue对象-->
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        const student=Vue.extend({
+            template:`
+            <div>
+            <h2> student名称:{{name}}</h2>
+            <h2> student年龄:{{age}}</h2>
+            <button @click='abc'> button </button>
+            </div>`,
+
+            data(){
+                return{
+                    name:'张三',
+                    age:19
+                }
+            },
+            methods: {
+                abc(){
+                    alert('dianjiwo')
+                }
+            },
+       })
+//创建1个school 组件 里面嵌套 student组件
+       const school=Vue.extend({
+            template:`
+            <div>
+                <student/>
+            <h2> 学校名称:{{name}}</h2>
+           
+            <h2> 学校地址:{{address}}</h2>
+            <student/>
+            </div>`,
+
+            data(){
+                return{
+                    name:'三都中学',
+                    address:'江西泰和'
+                }
+            },
+            components:{
+                student:student
+            }
+       })
+//注册一个空组件 让vue直接管理
+      const app=Vue.extend({
+            template:`
+            <div>
+            <h2> 欢迎学习:{{name}}</h2>
+            <br/>  
+            <school></school>
+            </div>`,
+            data(){
+                return{
+                    name:'组件',
+                    
+                }
+            },
+            components:{
+                school:school
+            }
+       })
+
+       const vm= new Vue({
+           // el:'#root',  //第一种写法
+           // data 的第一种写法
+            // data:{
+            //     name:'zxg1',
+            //     url:'www.baidu.com',
+            //     school:{
+            //         url:'www.163.com',
+            //         name:'zxg'
+            //     }
+            // }
+
+
+         // data的第2种写法
+        data:{
+           
+             name:"zxg1",
+             url:'www.baidu.com',
+             school:{
+                 url:'www.163.com',
+                 name:'zxg'
+                },
+            firstname:'张',
+            lastname:'三'
+            
+        },
+        //仅仅注册 空组件
+        components:{
+            app:app
+        }
+       
+        })
+        console.log("tag",vm) //打印对象日志信息
+        vm.$mount('#root') //第2中写法
+
+       
+        </script>
+</html>
